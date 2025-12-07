@@ -31,11 +31,11 @@ export function LandingPage({ onGetStarted, theme, onToggleTheme }: LandingPageP
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-emerald-50/30 to-gray-100 dark:from-[#0a0f0d] dark:via-[#0d1210] dark:to-[#0a0f0d] relative overflow-hidden">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-emerald-50/30 to-gray-100 dark:from-slate-950 dark:via-emerald-950 dark:to-slate-900 relative overflow-hidden">
       <AnimatedBackground />
       
       {/* Header */}
-      <header className="relative z-50 border-b border-gray-200/50 dark:border-white/10 backdrop-blur-sm">
+      <header className="relative z-50 border-b border-gray-200/50 dark:border-emerald-800/20 backdrop-blur-sm">
         <div className="max-w-7xl mx-auto px-6 py-5">
           <div className="flex items-center justify-between">
             <div className="flex items-center gap-2.5">
