@@ -3,11 +3,11 @@ import { Button } from './ui/button';
 import { Input } from './ui/input';
 import { Card, CardContent } from './ui/card';
 import { Badge } from './ui/badge';
-import { Sparkles, BookOpen, Target, Zap, CheckCircle2, Mail } from 'lucide-react';
-import { toast } from 'sonner';
-import { AnimatedBackground } from './AnimatedBackground';
-import { motion } from 'framer-motion';
+import { Sparkles, BookOpen, Target, Zap, CheckCircle2, Mail, Users, FileText, Clock, Star, TrendingUp, PlusCircle, Edit3 } from 'lucide-react';
+import { toast } from 'sonner@2.0.3';
+import { motion } from 'motion/react';
 import { ThemeToggle } from './ThemeToggle';
+import { AnimatedBackground } from './AnimatedBackground';
 
 interface LandingPageProps {
   onGetStarted: () => void;
@@ -22,7 +22,6 @@ export function LandingPage({ onGetStarted, theme, onToggleTheme }: LandingPageP
   const handleWaitlistSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (email) {
-      // Store waitlist email in localStorage
       const waitlist = JSON.parse(localStorage.getItem('blogai_waitlist') || '[]');
       waitlist.push({ email, date: new Date().toISOString() });
       localStorage.setItem('blogai_waitlist', JSON.stringify(waitlist));
@@ -32,276 +31,429 @@ export function LandingPage({ onGetStarted, theme, onToggleTheme }: LandingPageP
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-emerald-50 via-white to-teal-50 dark:from-gray-900 dark:via-emerald-950 dark:to-gray-900 relative">
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-emerald-50/30 to-gray-100 dark:from-[#0a0f0d] dark:via-[#0d1210] dark:to-[#0a0f0d] relative overflow-hidden">
       <AnimatedBackground />
+      
       {/* Header */}
-      <header className="container mx-auto px-4 py-6 relative z-10">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-2 cursor-pointer" onClick={() => window.location.reload()}>
-            <Sparkles className="w-8 h-8 text-emerald-700 dark:text-emerald-400" />
-            <span className="text-xl text-emerald-800 dark:text-emerald-300">BlogAI Writer</span>
-          </div>
-          <div className="flex items-center gap-2">
-            <ThemeToggle theme={theme} onToggle={onToggleTheme} />
-            <Button variant="outline" onClick={onGetStarted}>
-              Sign In
-            </Button>
+      <header className="relative z-50 border-b border-gray-200/50 dark:border-white/10 backdrop-blur-sm">
+        <div className="max-w-7xl mx-auto px-6 py-5">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center gap-2.5">
+              <Sparkles className="w-6 h-6 text-emerald-500 dark:text-emerald-400" />
+              <span className="text-lg text-gray-900 dark:text-white font-medium">BlogAI Writer</span>
+            </div>
+            <div className="flex items-center gap-3">
+              <ThemeToggle theme={theme} onToggle={onToggleTheme} />
+              <Button 
+                variant="ghost" 
+                onClick={onGetStarted}
+                className="text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-white hover:bg-gray-100 dark:hover:bg-white/5 transition-all"
+              >
+                Sign In
+              </Button>
+              <Button 
+                onClick={onGetStarted}
+                className="bg-emerald-500 text-white hover:bg-emerald-600 transition-all"
+              >
+                Get Started
+              </Button>
+            </div>
           </div>
         </div>
       </header>
 
       {/* Hero Section */}
-      <section className="container mx-auto px-4 py-20 text-center relative z-10">
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.5 }}
-        >
-          <Badge className="mb-4 bg-emerald-100 text-emerald-800 hover:bg-emerald-100 dark:bg-emerald-900/30 dark:text-emerald-300 dark:hover:bg-emerald-900/30">
-            Coming Soon
-          </Badge>
-        </motion.div>
-        <motion.h1 
-          className="mb-6 max-w-4xl mx-auto text-emerald-950 dark:text-emerald-50"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.1 }}
-        >
-          Create Engaging Blog Posts with AI in Minutes
-        </motion.h1>
-        <motion.p 
-          className="mb-8 max-w-2xl mx-auto text-gray-700 dark:text-gray-300 text-xl"
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.2 }}
-        >
-          Write manually, let AI assist you, or discover trending topics automatically. 
-          Publish to multiple platforms with one click.
-        </motion.p>
+      <section className="relative z-10 max-w-7xl mx-auto px-6 pt-32 pb-24">
+        <div className="max-w-4xl mx-auto text-center">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+          >
+            <Badge className="mb-6 bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20 hover:bg-emerald-500/10 px-4 py-1.5">
+              <Sparkles className="w-3.5 h-3.5 mr-1.5" />
+              Now Available for Everyone
+            </Badge>
+            
+            <h1 className="mb-6 text-5xl md:text-6xl lg:text-7xl text-gray-900 dark:text-white font-bold tracking-tight">
+              Write Better Blogs
+              <br />
+              <span className="text-emerald-600 dark:text-emerald-400">Faster Than Ever</span>
+            </h1>
+            
+            <p className="mb-10 text-xl text-gray-600 dark:text-gray-400 max-w-2xl mx-auto leading-relaxed">
+              The all-in-one AI writing assistant that helps you research, write, and publish 
+              engaging content in minutes, not hours.
+            </p>
 
-        {/* Waitlist Form */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, delay: 0.3 }}
-        >
-        {!isSubmitted ? (
-          <form onSubmit={handleWaitlistSubmit} className="max-w-md mx-auto mb-12">
-            <div className="flex gap-2">
-              <Input
-                type="email"
-                placeholder="Enter your email"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
-                required
-                className="flex-1 dark:bg-emerald-950/50 dark:border-emerald-800/50 dark:placeholder:text-gray-500"
-              />
-              <Button type="submit" className="bg-emerald-700 hover:bg-emerald-800 dark:bg-emerald-600 dark:hover:bg-emerald-700">
-                Join Waitlist
+            <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+              <Button 
+                onClick={onGetStarted}
+                size="lg"
+                className="bg-emerald-500 text-white hover:bg-emerald-600 h-12 px-8 transition-all"
+              >
+                Start Writing for Free
+              </Button>
+              <Button 
+                variant="outline"
+                size="lg"
+                className="border-gray-300 dark:border-white/20 text-gray-700 dark:text-white hover:bg-gray-100 dark:hover:bg-white/10 hover:text-gray-900 h-12 px-8 transition-all"
+              >
+                View Demo
               </Button>
             </div>
-            <p className="mt-3 text-sm text-gray-500 dark:text-gray-400">
-              Be the first to know when we launch
-            </p>
-          </form>
-        ) : (
-          <motion.div
-            initial={{ scale: 0.8, opacity: 0 }}
-            animate={{ scale: 1, opacity: 1 }}
-            transition={{ duration: 0.4 }}
-            className="max-w-md mx-auto mb-12 p-6 bg-green-50 dark:bg-green-900/20 rounded-lg border border-green-200 dark:border-green-800/50"
-          >
-            <div className="flex items-center gap-2 text-green-700 dark:text-green-400 justify-center mb-2">
-              <CheckCircle2 className="w-5 h-5" />
-              <span>You're on the list!</span>
+
+            <div className="flex flex-wrap items-center justify-center gap-6 mt-8 text-sm text-gray-500">
+              <span className="flex items-center gap-1.5">
+                <CheckCircle2 className="w-4 h-4 text-emerald-500" />
+                No credit card required
+              </span>
+              <span className="flex items-center gap-1.5">
+                <CheckCircle2 className="w-4 h-4 text-emerald-500" />
+                Free 14-day trial
+              </span>
+              <span className="flex items-center gap-1.5">
+                <CheckCircle2 className="w-4 h-4 text-emerald-500" />
+                Cancel anytime
+              </span>
             </div>
-            <p className="text-sm text-green-600 dark:text-green-500">
-              We'll send you an email as soon as BlogAI Writer is ready.
-            </p>
-          </motion.div>
-        )}
-
-        <motion.div
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-        >
-          <Button 
-            onClick={onGetStarted} 
-            size="lg"
-            className="bg-emerald-700 hover:bg-emerald-800 dark:bg-emerald-600 dark:hover:bg-emerald-700"
-          >
-            Try Demo Now
-          </Button>
-        </motion.div>
-        </motion.div>
-      </section>
-
-      {/* Features Grid */}
-      <section className="container mx-auto px-4 py-16 relative z-10">
-        <h2 className="mb-12 text-center text-gray-900 dark:text-gray-100">
-          Everything You Need to Create Amazing Content
-        </h2>
-        
-        <div className="grid md:grid-cols-3 gap-8 max-w-5xl mx-auto">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            whileHover={{ scale: 1.05 }}
-          >
-            <Card className="border-2 hover:shadow-lg transition-shadow hover:border-emerald-200 dark:hover:border-emerald-700 h-full dark:bg-emerald-950/30 dark:border-emerald-900/30">
-              <CardContent className="pt-6">
-                <motion.div 
-                  className="w-12 h-12 bg-emerald-100 dark:bg-emerald-900/50 rounded-lg flex items-center justify-center mb-4"
-                  whileHover={{ rotate: 360 }}
-                  transition={{ duration: 0.5 }}
-                >
-                  <BookOpen className="w-6 h-6 text-emerald-700 dark:text-emerald-400" />
-                </motion.div>
-                <h3 className="mb-2 text-gray-900 dark:text-gray-100">Flexible Writing Modes</h3>
-                <p className="text-gray-600 dark:text-gray-400">
-                  Write from scratch, use AI assistance, or let AI generate content based on your ideas.
-                </p>
-              </CardContent>
-            </Card>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.2 }}
-            whileHover={{ scale: 1.05 }}
-          >
-            <Card className="border-2 hover:shadow-lg transition-shadow hover:border-emerald-200 dark:hover:border-emerald-700 h-full dark:bg-emerald-950/30 dark:border-emerald-900/30">
-              <CardContent className="pt-6">
-                <motion.div 
-                  className="w-12 h-12 bg-teal-100 dark:bg-teal-900/50 rounded-lg flex items-center justify-center mb-4"
-                  whileHover={{ rotate: 360 }}
-                  transition={{ duration: 0.5 }}
-                >
-                  <Target className="w-6 h-6 text-teal-700 dark:text-teal-400" />
-                </motion.div>
-                <h3 className="mb-2 text-gray-900 dark:text-gray-100">Hot Topic Discovery</h3>
-                <p className="text-gray-600 dark:text-gray-400">
-                  AI analyzes your previous posts and suggests trending topics in your niche.
-                </p>
-              </CardContent>
-            </Card>
-          </motion.div>
-
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.5, delay: 0.3 }}
-            whileHover={{ scale: 1.05 }}
-          >
-            <Card className="border-2 hover:shadow-lg transition-shadow hover:border-emerald-200 dark:hover:border-emerald-700 h-full dark:bg-emerald-950/30 dark:border-emerald-900/30">
-              <CardContent className="pt-6">
-                <motion.div 
-                  className="w-12 h-12 bg-green-100 dark:bg-green-900/50 rounded-lg flex items-center justify-center mb-4"
-                  whileHover={{ rotate: 360 }}
-                  transition={{ duration: 0.5 }}
-                >
-                  <Zap className="w-6 h-6 text-green-700 dark:text-green-400" />
-                </motion.div>
-                <h3 className="mb-2 text-gray-900 dark:text-gray-100">Multi-Platform Publishing</h3>
-                <p className="text-gray-600 dark:text-gray-400">
-                  Publish to WordPress, Medium, Dev.to, and other platforms with a single click.
-                </p>
-              </CardContent>
-            </Card>
           </motion.div>
         </div>
       </section>
 
-      {/* How It Works */}
-      <section className="container mx-auto px-4 py-16 bg-white/50 dark:bg-emerald-950/20 rounded-3xl my-16 relative z-10">
-        <h2 className="mb-12 text-center text-gray-900 dark:text-gray-100">
-          How It Works
-        </h2>
-        
-        <div className="max-w-3xl mx-auto space-y-8">
+      {/* Stats Section */}
+      <section className="relative z-10 max-w-7xl mx-auto px-6 py-20 border-y border-gray-200/50 dark:border-emerald-900/20">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-12">
           {[
-            {
-              number: 1,
-              title: 'Sign Up & Login',
-              description: 'Create your account and access your personalized dashboard.'
-            },
-            {
-              number: 2,
-              title: 'Choose Your Writing Method',
-              description: 'Write manually, get AI suggestions, or let AI discover hot topics for you.'
-            },
-            {
-              number: 3,
-              title: 'Publish Everywhere',
-              description: 'Select your target platforms and publish your content with one click.'
-            }
-          ].map((step, index) => (
+            { icon: Users, value: '10,000+', label: 'Active Writers' },
+            { icon: FileText, value: '1M+', label: 'Posts Generated' },
+            { icon: Clock, value: '500k Hrs', label: 'Time Saved' },
+            { icon: Star, value: '4.9/5', label: 'Happy Users' }
+          ].map((stat, index) => (
             <motion.div
-              key={step.number}
-              className="flex gap-4"
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
+              key={index}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true }}
-              transition={{ duration: 0.5, delay: index * 0.1 }}
+              transition={{ delay: index * 0.1 }}
+              className="text-center"
             >
-              <motion.div 
-                className="w-10 h-10 bg-emerald-700 dark:bg-emerald-600 text-white rounded-full flex items-center justify-center flex-shrink-0"
-                whileHover={{ scale: 1.1, rotate: 360 }}
-                transition={{ duration: 0.5 }}
-              >
-                {step.number}
-              </motion.div>
-              <div>
-                <h3 className="mb-2 text-gray-900 dark:text-gray-100">{step.title}</h3>
-                <p className="text-gray-600 dark:text-gray-400">{step.description}</p>
-              </div>
+              <stat.icon className="w-5 h-5 text-emerald-500 dark:text-emerald-400 mx-auto mb-3" />
+              <div className="text-3xl text-gray-900 dark:text-white font-semibold mb-1">{stat.value}</div>
+              <div className="text-sm text-gray-500 dark:text-gray-400 uppercase tracking-wider">{stat.label}</div>
             </motion.div>
           ))}
         </div>
       </section>
 
-      {/* Footer CTA */}
-      <section className="container mx-auto px-4 py-16 text-center relative z-10">
-        <motion.div 
-          className="bg-gradient-to-r from-emerald-700 to-teal-700 dark:from-emerald-800 dark:to-teal-800 rounded-2xl p-12 text-white"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.6 }}
-        >
-          <motion.div
-            animate={{ y: [0, -10, 0] }}
-            transition={{ duration: 2, repeat: Infinity }}
-          >
-            <Mail className="w-12 h-12 mx-auto mb-4" />
-          </motion.div>
-          <h2 className="mb-4">Ready to Transform Your Content Creation?</h2>
-          <p className="mb-8 text-emerald-100 dark:text-emerald-200 max-w-2xl mx-auto">
-            Join our waitlist and be among the first to experience the future of blog writing.
+      {/* Quick Actions */}
+      <section className="relative z-10 max-w-7xl mx-auto px-6 py-24">
+        <div className="text-center mb-16">
+          <h2 className="text-3xl lg:text-4xl text-gray-900 dark:text-white font-bold mb-4">
+            Quick Actions
+          </h2>
+          <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+            Everything you need to create amazing content, all in one place.
           </p>
-          <motion.div
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-          >
-            <Button 
-              onClick={onGetStarted} 
-              size="lg"
-              variant="secondary"
+        </div>
+        
+        <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+          {[
+            {
+              icon: PlusCircle,
+              title: 'Write New Post',
+              desc: 'Start writing from scratch or use a template'
+            },
+            {
+              icon: Sparkles,
+              title: 'AI-Assisted Writing',
+              desc: 'Let AI help you write engaging content'
+            },
+            {
+              icon: TrendingUp,
+              title: 'Discover Hot Topics',
+              desc: 'AI-powered topic suggestions based on trends'
+            }
+          ].map((action, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.1 }}
+              whileHover={{ y: -4 }}
+              className="cursor-pointer"
+              onClick={onGetStarted}
             >
-              Get Started Now
-            </Button>
-          </motion.div>
-        </motion.div>
+              <Card className="h-full !bg-white dark:!bg-slate-800/90 border-gray-200 dark:border-emerald-500/30 hover:border-emerald-500/50 dark:hover:border-emerald-400/50 hover:bg-gray-50 dark:hover:!bg-slate-700/90 transition-all shadow-sm dark:shadow-none backdrop-blur-sm">
+                <CardContent className="p-8">
+                  <action.icon className="w-6 h-6 text-emerald-500 dark:text-emerald-400 mb-4" />
+                  <h3 className="text-lg text-gray-900 dark:text-white font-semibold mb-2">{action.title}</h3>
+                  <p className="text-sm text-gray-600 dark:text-gray-200 leading-relaxed">{action.desc}</p>
+                </CardContent>
+              </Card>
+            </motion.div>
+          ))}
+        </div>
+      </section>
+
+      {/* Features */}
+      <section className="relative z-10 max-w-7xl mx-auto px-6 py-24">
+        <div className="text-center mb-16">
+          <h2 className="text-3xl lg:text-4xl text-gray-900 dark:text-white font-bold mb-4">
+            Everything You Need to Scale
+          </h2>
+          <p className="text-lg text-gray-600 dark:text-gray-300 max-w-2xl mx-auto">
+            Powerful features designed to help you create high-quality content consistently.
+          </p>
+        </div>
+        
+        <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+          {[
+            {
+              icon: BookOpen,
+              title: 'Flexible Writing Modes',
+              desc: 'Write from scratch, use AI assistance, or let AI generate content based on your ideas.'
+            },
+            {
+              icon: Target,
+              title: 'SEO Optimization',
+              desc: 'Built-in SEO tools ensure your content ranks high and reaches the right audience.'
+            },
+            {
+              icon: Zap,
+              title: 'Multi-Platform Publishing',
+              desc: 'Publish to WordPress, Medium, Dev.to, and other platforms with a single click.'
+            }
+          ].map((feature, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.1 }}
+            >
+              <Card className="h-full !bg-white dark:!bg-slate-800/90 border-gray-200 dark:border-emerald-500/30 hover:border-emerald-500/50 dark:hover:border-emerald-400/50 transition-all shadow-sm dark:shadow-none backdrop-blur-sm">
+                <CardContent className="p-8">
+                  <feature.icon className="w-6 h-6 text-emerald-500 dark:text-emerald-400 mb-4" />
+                  <h3 className="text-lg text-gray-900 dark:text-white font-semibold mb-3">{feature.title}</h3>
+                  <p className="text-sm text-gray-600 dark:text-gray-200 leading-relaxed">{feature.desc}</p>
+                </CardContent>
+              </Card>
+            </motion.div>
+          ))}
+        </div>
+      </section>
+
+      {/* Testimonials */}
+      <section className="relative z-10 max-w-7xl mx-auto px-6 py-24 border-y border-gray-200/50 dark:border-emerald-900/20">
+        <div className="text-center mb-16">
+          <h2 className="text-3xl lg:text-4xl text-gray-900 dark:text-white font-bold mb-4">
+            Loved by Content Creators
+          </h2>
+          <p className="text-lg text-gray-600 dark:text-gray-300">
+            See what our users have to say about their experience.
+          </p>
+        </div>
+        
+        <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+          {[
+            {
+              quote: "This tool has completely transformed how I write. I can produce high-quality content 5x faster.",
+              author: "Sarah J.",
+              role: "Tech Blogger"
+            },
+            {
+              quote: "The SEO suggestions are spot on. My organic traffic has doubled since I started using BlogAI.",
+              author: "Mike T.",
+              role: "Marketing Director"
+            },
+            {
+              quote: "Finally, an AI writer that understands nuance and tone. It feels like writing with a pro editor.",
+              author: "Emily R.",
+              role: "Freelance Writer"
+            }
+          ].map((testimonial, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.1 }}
+            >
+              <Card className="h-full !bg-white dark:!bg-slate-800/90 border-gray-200 dark:border-emerald-500/30 shadow-sm dark:shadow-none backdrop-blur-sm">
+                <CardContent className="p-8">
+                  <div className="flex gap-0.5 mb-6">
+                    {[...Array(5)].map((_, i) => (
+                      <Star key={i} className="w-4 h-4 fill-yellow-400 text-yellow-400" />
+                    ))}
+                  </div>
+                  <blockquote className="text-gray-700 dark:text-white mb-6 leading-relaxed italic">
+                    "{testimonial.quote}"
+                  </blockquote>
+                  <div>
+                    <div className="text-gray-900 dark:text-white font-semibold">{testimonial.author}</div>
+                    <div className="text-sm text-gray-500 dark:text-gray-300">{testimonial.role}</div>
+                  </div>
+                </CardContent>
+              </Card>
+            </motion.div>
+          ))}
+        </div>
+      </section>
+
+      {/* Pricing */}
+      <section className="relative z-10 max-w-7xl mx-auto px-6 py-24">
+        <div className="text-center mb-16">
+          <h2 className="text-3xl lg:text-4xl text-gray-900 dark:text-white font-bold mb-4">
+            Simple, Transparent Pricing
+          </h2>
+          <p className="text-lg text-gray-600 dark:text-gray-300">
+            Choose the plan that works best for you.
+          </p>
+        </div>
+        
+        <div className="grid md:grid-cols-3 gap-6 max-w-5xl mx-auto">
+          {[
+            {
+              name: 'Starter',
+              price: '$0',
+              desc: 'Perfect for trying out BlogAI',
+              features: ['5 AI-generated posts/mo', 'Basic SEO tools', '1 User seat', 'Email support'],
+              cta: 'Start for Free',
+              popular: false
+            },
+            {
+              name: 'Pro',
+              price: '$29',
+              desc: 'For serious content creators',
+              features: ['Unlimited AI posts', 'Advanced SEO analysis', 'Priority support', 'Custom brand voice', 'Team collaboration'],
+              cta: 'Get Pro',
+              popular: true
+            },
+            {
+              name: 'Team',
+              price: '$99',
+              desc: 'Best for agencies and teams',
+              features: ['Everything in Pro', '10 User seats', 'Advanced analytics', 'API Access', 'Dedicated support'],
+              cta: 'Contact Sales',
+              popular: false
+            }
+          ].map((plan, index) => (
+            <motion.div
+              key={index}
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ delay: index * 0.1 }}
+              className="relative"
+            >
+              {plan.popular && (
+                <div className="absolute -top-4 left-1/2 -translate-x-1/2 z-10">
+                  <Badge className="bg-emerald-500 text-white border-0 px-4 py-1">
+                    Most Popular
+                  </Badge>
+                </div>
+              )}
+              <Card className={`h-full ${plan.popular ? '!bg-emerald-50 dark:!bg-emerald-900/40 border-emerald-500/50 dark:border-emerald-400/50' : '!bg-white dark:!bg-slate-800/90 border-gray-200 dark:border-emerald-500/30'} shadow-sm dark:shadow-none backdrop-blur-sm`}>
+                <CardContent className="p-8">
+                  <div className="mb-6">
+                    <h3 className="text-lg text-gray-900 dark:text-white font-semibold mb-1">{plan.name}</h3>
+                    <p className="text-sm text-gray-500 dark:text-gray-300">{plan.desc}</p>
+                  </div>
+                  <div className="mb-8">
+                    <span className="text-4xl text-gray-900 dark:text-white font-bold">{plan.price}</span>
+                    <span className="text-gray-500 dark:text-gray-300">/month</span>
+                  </div>
+                  <ul className="space-y-3 mb-8">
+                    {plan.features.map((feature, i) => (
+                      <li key={i} className="flex items-start gap-3 text-sm text-gray-700 dark:text-white">
+                        <CheckCircle2 className="w-4 h-4 text-emerald-500 flex-shrink-0 mt-0.5" />
+                        {feature}
+                      </li>
+                    ))}
+                  </ul>
+                  <Button 
+                    className={`w-full ${
+                      plan.popular 
+                        ? 'bg-emerald-500 text-white hover:bg-emerald-600' 
+                        : 'bg-gray-100 dark:bg-white/10 text-gray-900 dark:text-white hover:bg-gray-200 dark:hover:bg-white/20 border border-gray-200 dark:border-white/10'
+                    } transition-all`}
+                    onClick={onGetStarted}
+                  >
+                    {plan.cta}
+                  </Button>
+                </CardContent>
+              </Card>
+            </motion.div>
+          ))}
+        </div>
+      </section>
+
+      {/* CTA */}
+      <section className="relative z-10 max-w-7xl mx-auto px-6 py-24">
+        <div className="bg-gradient-to-br from-emerald-500/10 to-teal-500/10 dark:from-emerald-900/40 dark:to-teal-900/40 border border-emerald-500/30 dark:border-emerald-400/30 rounded-2xl p-12 lg:p-16 text-center backdrop-blur-sm">
+          <h2 className="text-3xl lg:text-4xl text-gray-900 dark:text-white font-bold mb-6">
+            Ready to Transform Your Content?
+          </h2>
+          <p className="text-lg text-gray-600 dark:text-gray-200 mb-8 max-w-2xl mx-auto">
+            Join thousands of writers who are creating better content faster with BlogAI Writer.
+          </p>
+          <Button 
+            onClick={onGetStarted}
+            size="lg"
+            className="bg-emerald-500 text-white hover:bg-emerald-600 h-12 px-10 transition-all"
+          >
+            Get Started Now
+          </Button>
+        </div>
       </section>
 
       {/* Footer */}
-      <footer className="container mx-auto px-4 py-8 text-center text-gray-500 dark:text-gray-400 text-sm">
-        <p>© 2024 BlogAI Writer. All rights reserved.</p>
+      <footer className="relative z-10 border-t border-gray-200/50 dark:border-emerald-900/20">
+        <div className="max-w-7xl mx-auto px-6 py-16">
+          <div className="grid md:grid-cols-4 gap-12 mb-12">
+            <div>
+              <div className="flex items-center gap-2.5 mb-4">
+                <Sparkles className="w-5 h-5 text-emerald-500 dark:text-emerald-400" />
+                <span className="text-gray-900 dark:text-white font-medium">BlogAI Writer</span>
+              </div>
+              <p className="text-sm text-gray-500 leading-relaxed">
+                Empowering writers with AI to create meaningful content.
+              </p>
+            </div>
+            <div>
+              <h4 className="text-gray-900 dark:text-white text-sm mb-4">Product</h4>
+              <ul className="space-y-2.5 text-sm text-gray-500">
+                <li><a href="#" className="hover:text-emerald-500 dark:hover:text-emerald-400 transition-colors">Features</a></li>
+                <li><a href="#" className="hover:text-emerald-500 dark:hover:text-emerald-400 transition-colors">Pricing</a></li>
+                <li><a href="#" className="hover:text-emerald-500 dark:hover:text-emerald-400 transition-colors">Roadmap</a></li>
+                <li><a href="#" className="hover:text-emerald-500 dark:hover:text-emerald-400 transition-colors">Updates</a></li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="text-gray-900 dark:text-white text-sm mb-4">Resources</h4>
+              <ul className="space-y-2.5 text-sm text-gray-500">
+                <li><a href="#" className="hover:text-emerald-500 dark:hover:text-emerald-400 transition-colors">Blog</a></li>
+                <li><a href="#" className="hover:text-emerald-500 dark:hover:text-emerald-400 transition-colors">Community</a></li>
+                <li><a href="#" className="hover:text-emerald-500 dark:hover:text-emerald-400 transition-colors">Help Center</a></li>
+                <li><a href="#" className="hover:text-emerald-500 dark:hover:text-emerald-400 transition-colors">API Docs</a></li>
+              </ul>
+            </div>
+            <div>
+              <h4 className="text-gray-900 dark:text-white text-sm mb-4">Legal</h4>
+              <ul className="space-y-2.5 text-sm text-gray-500">
+                <li><a href="#" className="hover:text-emerald-500 dark:hover:text-emerald-400 transition-colors">Privacy Policy</a></li>
+                <li><a href="#" className="hover:text-emerald-500 dark:hover:text-emerald-400 transition-colors">Terms of Service</a></li>
+                <li><a href="#" className="hover:text-emerald-500 dark:hover:text-emerald-400 transition-colors">Cookie Policy</a></li>
+                <li><a href="#" className="hover:text-emerald-500 dark:hover:text-emerald-400 transition-colors">GDPR</a></li>
+              </ul>
+            </div>
+          </div>
+          <div className="text-center pt-8 border-t border-gray-200/50 dark:border-emerald-900/20">
+            <p className="text-sm text-gray-500">© 2024 BlogAI Writer. All rights reserved.</p>
+          </div>
+        </div>
       </footer>
     </div>
   );

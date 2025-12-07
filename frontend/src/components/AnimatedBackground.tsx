@@ -2,10 +2,10 @@ import { motion } from 'motion/react';
 
 export function AnimatedBackground() {
   return (
-    <div className="fixed inset-0 -z-10 overflow-hidden pointer-events-none">
+    <div className="fixed inset-0 z-0 overflow-hidden pointer-events-none">
       {/* Gradient Orbs */}
       <motion.div
-        className="absolute top-0 -left-20 w-96 h-96 bg-gradient-to-br from-emerald-300/30 to-teal-400/30 dark:from-emerald-600/20 dark:to-teal-600/20 rounded-full blur-3xl"
+        className="absolute top-0 -left-20 w-96 h-96 bg-gradient-to-br from-emerald-300/40 to-teal-400/40 dark:from-emerald-500/10 dark:to-teal-500/10 rounded-full blur-3xl"
         animate={{
           x: [0, 100, 0],
           y: [0, 50, 0],
@@ -19,7 +19,7 @@ export function AnimatedBackground() {
       />
       
       <motion.div
-        className="absolute top-1/4 -right-20 w-[500px] h-[500px] bg-gradient-to-br from-green-300/20 to-emerald-400/20 dark:from-green-600/15 dark:to-emerald-600/15 rounded-full blur-3xl"
+        className="absolute top-1/4 -right-20 w-[500px] h-[500px] bg-gradient-to-br from-green-300/30 to-emerald-400/30 dark:from-emerald-500/10 dark:to-teal-500/10 rounded-full blur-3xl"
         animate={{
           x: [0, -80, 0],
           y: [0, 100, 0],
@@ -33,7 +33,7 @@ export function AnimatedBackground() {
       />
 
       <motion.div
-        className="absolute bottom-0 left-1/4 w-[400px] h-[400px] bg-gradient-to-br from-teal-300/25 to-green-400/25 dark:from-teal-600/15 dark:to-green-600/15 rounded-full blur-3xl"
+        className="absolute bottom-0 left-1/4 w-[400px] h-[400px] bg-gradient-to-br from-teal-300/35 to-green-400/35 dark:from-teal-500/10 dark:to-emerald-500/10 rounded-full blur-3xl"
         animate={{
           x: [0, 60, 0],
           y: [0, -80, 0],
@@ -46,11 +46,11 @@ export function AnimatedBackground() {
         }}
       />
 
-      {/* Floating Particles */}
+      {/* Floating Particles - Light in light mode, subtle in dark mode */}
       {Array.from({ length: 12 }).map((_, i) => (
         <motion.div
           key={i}
-          className="absolute w-2 h-2 bg-emerald-400/40 dark:bg-emerald-500/30 rounded-full"
+          className="absolute z-50"
           style={{
             left: `${Math.random() * 100}%`,
             top: `${Math.random() * 100}%`,
@@ -58,7 +58,7 @@ export function AnimatedBackground() {
           animate={{
             y: [0, -30, 0],
             x: [0, Math.random() * 20 - 10, 0],
-            opacity: [0.2, 0.5, 0.2],
+            opacity: [0.6, 1, 0.6],
           }}
           transition={{
             duration: 3 + Math.random() * 4,
@@ -66,20 +66,33 @@ export function AnimatedBackground() {
             delay: Math.random() * 2,
             ease: "easeInOut",
           }}
-        />
+        >
+          {/* Light mode - subtle particles */}
+          <div 
+            className="w-2 h-2 rounded-full bg-emerald-500/40 dark:hidden"
+            style={{
+              boxShadow: '0 0 8px rgba(16, 185, 129, 0.2)',
+              filter: 'blur(0.5px)',
+            }}
+          />
+          
+          {/* Dark mode - subtle particles */}
+          <div 
+            className="hidden dark:block w-2 h-2 rounded-full"
+            style={{
+              background: 'rgba(16, 185, 129, 0.3)',
+              boxShadow: '0 0 10px rgba(16, 185, 129, 0.2)',
+              filter: 'blur(0.5px)',
+            }}
+          />
+        </motion.div>
       ))}
 
       {/* Organic Shapes */}
       <motion.div
-        className="absolute top-1/3 left-1/3 w-64 h-64 opacity-20 dark:opacity-10"
-        animate={{
-          rotate: 360,
-        }}
-        transition={{
-          duration: 50,
-          repeat: Infinity,
-          ease: "linear",
-        }}
+        className="absolute top-1/3 left-1/3 w-64 h-64 opacity-30 dark:opacity-5"
+        animate={{ rotate: 360 }}
+        transition={{ duration: 50, repeat: Infinity, ease: "linear" }}
       >
         <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
           <path
@@ -89,23 +102,17 @@ export function AnimatedBackground() {
           />
           <defs>
             <linearGradient id="gradient1" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" className="dark:[stop-color:#059669] [stop-color:#10b981]" style={{ stopOpacity: 0.3 }} />
-              <stop offset="100%" className="dark:[stop-color:#0d9488] [stop-color:#14b8a6]" style={{ stopOpacity: 0.3 }} />
+              <stop offset="0%" style={{ stopColor: '#10b981', stopOpacity: 0.3 }} />
+              <stop offset="100%" style={{ stopColor: '#14b8a6', stopOpacity: 0.3 }} />
             </linearGradient>
           </defs>
         </svg>
       </motion.div>
 
       <motion.div
-        className="absolute bottom-1/4 right-1/4 w-72 h-72 opacity-15 dark:opacity-8"
-        animate={{
-          rotate: -360,
-        }}
-        transition={{
-          duration: 60,
-          repeat: Infinity,
-          ease: "linear",
-        }}
+        className="absolute bottom-1/4 right-1/4 w-72 h-72 opacity-25 dark:opacity-5"
+        animate={{ rotate: -360 }}
+        transition={{ duration: 60, repeat: Infinity, ease: "linear" }}
       >
         <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
           <path
@@ -115,8 +122,8 @@ export function AnimatedBackground() {
           />
           <defs>
             <linearGradient id="gradient2" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" className="dark:[stop-color:#047857] [stop-color:#059669]" style={{ stopOpacity: 0.3 }} />
-              <stop offset="100%" className="dark:[stop-color:#15803d] [stop-color:#22c55e]" style={{ stopOpacity: 0.3 }} />
+              <stop offset="0%" style={{ stopColor: '#059669', stopOpacity: 0.3 }} />
+              <stop offset="100%" style={{ stopColor: '#22c55e', stopOpacity: 0.3 }} />
             </linearGradient>
           </defs>
         </svg>
@@ -124,7 +131,7 @@ export function AnimatedBackground() {
 
       {/* Wave Lines */}
       <motion.div
-        className="absolute inset-0 opacity-10 dark:opacity-5"
+        className="absolute inset-0 opacity-15 dark:opacity-5"
         initial={{ backgroundPosition: '0% 0%' }}
         animate={{ backgroundPosition: ['0% 0%', '100% 100%'] }}
         transition={{

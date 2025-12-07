@@ -4,24 +4,37 @@ import { LoginPage } from './components/LoginPage';
 import { Dashboard } from './components/Dashboard';
 import { Toaster } from './components/ui/sonner';
 
+// Initialize theme synchronously to avoid flash
+const getInitialTheme = (): 'light' | 'dark' => {
+  if (typeof window !== 'undefined') {
+    const savedTheme = localStorage.getItem('blogai_theme') as 'light' | 'dark' | null;
+    if (savedTheme) {
+      return savedTheme;
+    }
+    // Check system preference
+    if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+      return 'dark';
+    }
+  }
+  return 'light'; // Default to light
+};
+
+// Apply theme class immediately to prevent flash
+const initialTheme = getInitialTheme();
+if (typeof document !== 'undefined') {
+  if (initialTheme === 'dark') {
+    document.documentElement.classList.add('dark');
+  } else {
+    document.documentElement.classList.remove('dark');
+  }
+}
+
 export default function App() {
   const [currentPage, setCurrentPage] = useState<'landing' | 'login' | 'dashboard'>('landing');
   const [user, setUser] = useState<{ email: string; name: string } | null>(null);
-  const [theme, setTheme] = useState<'light' | 'dark'>('light');
+  const [theme, setTheme] = useState<'light' | 'dark'>(initialTheme);
 
   useEffect(() => {
-    // Check for saved theme preference or default to 'light'
-    const savedTheme = localStorage.getItem('blogai_theme') as 'light' | 'dark' | null;
-    const initialTheme = savedTheme || 'light';
-    setTheme(initialTheme);
-    
-    // Apply theme class to document
-    if (initialTheme === 'dark') {
-      document.documentElement.classList.add('dark');
-    } else {
-      document.documentElement.classList.remove('dark');
-    }
-    
     // Check if user is logged in
     const storedUser = localStorage.getItem('blogai_user');
     if (storedUser) {
@@ -47,15 +60,6 @@ export default function App() {
     setCurrentPage('login');
   };
 
-  const handleGoHome = () => {
-    // If user is logged in, go to dashboard, otherwise go to landing page
-    if (user) {
-      setCurrentPage('dashboard');
-    } else {
-      setCurrentPage('landing');
-    }
-  };
-
   const handleLogin = (email: string, name: string) => {
     const userData = { email, name };
     setUser(userData);
@@ -72,8 +76,8 @@ export default function App() {
   return (
     <>
       {currentPage === 'landing' && <LandingPage onGetStarted={handleGetStarted} theme={theme} onToggleTheme={toggleTheme} />}
-      {currentPage === 'login' && <LoginPage onLogin={handleLogin} onGoHome={handleGoHome} theme={theme} onToggleTheme={toggleTheme} />}
-      {currentPage === 'dashboard' && user && <Dashboard user={user} onLogout={handleLogout} onGoHome={handleGoHome} theme={theme} onToggleTheme={toggleTheme} />}
+      {currentPage === 'login' && <LoginPage onLogin={handleLogin} theme={theme} onToggleTheme={toggleTheme} />}
+      {currentPage === 'dashboard' && user && <Dashboard user={user} onLogout={handleLogout} theme={theme} onToggleTheme={toggleTheme} />}
       <Toaster />
     </>
   );
