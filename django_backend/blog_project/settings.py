@@ -37,6 +37,19 @@ CORS_ALLOWED_ORIGINS = [
 
 CORS_ALLOW_CREDENTIALS = True
 
+# CSRF Trusted Origins (required for Django 4.0+)
+CSRF_TRUSTED_ORIGINS = [
+    "http://localhost:5173",
+    "http://localhost:3000",
+    "http://localhost:3001",
+    "http://127.0.0.1:5173",
+    "http://127.0.0.1:3000",
+    "http://127.0.0.1:3001",
+]
+
+# For development: Allow CORS from any origin (remove in production)
+CORS_ALLOW_ALL_ORIGINS = True
+
 
 # Application definition
 
@@ -159,7 +172,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework_simplejwt.authentication.JWTAuthentication',
-        'rest_framework.authentication.SessionAuthentication',
     ],
     'DEFAULT_PERMISSION_CLASSES': [
         'rest_framework.permissions.IsAuthenticatedOrReadOnly',
@@ -187,8 +199,15 @@ SIMPLE_JWT = {
 # Django Allauth Configuration (Updated for new version)
 ACCOUNT_EMAIL_VERIFICATION = 'none'  # Disable email verification for development
 ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION = True
-ACCOUNT_SIGNUP_EMAIL_ENTER_TWICE = False
 ACCOUNT_UNIQUE_EMAIL = True
+
+# New format for signup fields (replaces deprecated settings)
+ACCOUNT_SIGNUP_FIELDS = [
+    'email',
+    'username*',
+    'password1*',
+    'password2*',
+]
 
 # Email Backend for Development (prints emails to console instead of sending)
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
