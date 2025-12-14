@@ -1,0 +1,10 @@
+langchain
+genai
+google-cloud-aiplatform
+langgraph
+fastapi
+uvicorn
+pydantic
+httpx
+pytest
+pytest-asyncio
