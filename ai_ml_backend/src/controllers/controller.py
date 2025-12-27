@@ -1,16 +1,16 @@
 from fastapi import APIRouter, HTTPException, status
 from pydantic import BaseModel, Field
 from typing import Optional
-from services.service import ArticleService
-from helpers.exception import NerException
-from helpers.logger import logging
+from ..services.service import ArticleService
+from ..helpers.exception import NerException
+from ..helpers.logger import logging
 
 router = APIRouter(prefix="/api/v1", tags=["articles"])
 service = ArticleService()
 
 
 class ArticleRequest(BaseModel):
-    title: str = Field(..., min_length=1, max_length=500)
+    title: str = Field(..., min_length=1, max_length=5000)
     action: str = Field(..., pattern="^(generate|improve|summarize)$")
 
 

@@ -6,6 +6,7 @@ import { Badge } from './ui/badge';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ArrowLeft, Sparkles, Wand2, Loader2, AlertCircle } from 'lucide-react';
 import { toast } from 'sonner';
+import { aiService } from '../services/api';
 
 interface AIBlogGeneratorProps {
   onBack: () => void;
@@ -34,164 +35,22 @@ export function AIBlogGenerator({ onBack, onGenerateComplete }: AIBlogGeneratorP
 
     setIsGenerating(true);
 
-    // Simulate AI generation
-    await new Promise(resolve => setTimeout(resolve, 3000));
+    try {
+      // Call the real AI API
+      const response = await aiService.generateArticle(prompt);
+      
+      // Extract the title and content from the response
+      const title = prompt.length > 100 ? prompt.substring(0, 97) + '...' : prompt;
+      const content = response.result || response;
 
-    // Generate mock blog based on prompt
-    const title = generateTitleFromPrompt(prompt);
-    const content = generateContentFromPrompt(prompt, title);
-
-    setGeneratedContent({ title, content });
-    setIsGenerating(false);
-    toast.success('Blog generated successfully!');
-  };
-
-  const generateTitleFromPrompt = (userPrompt: string): string => {
-    // Extract key concepts from prompt
-    const words = userPrompt.toLowerCase().split(' ');
-    const keywords = ['ai', 'technology', 'development', 'guide', 'tips', 'best practices', 'tutorial'];
-    
-    // Simple title generation logic
-    if (userPrompt.length < 50) {
-      return userPrompt.charAt(0).toUpperCase() + userPrompt.slice(1);
+      setGeneratedContent({ title, content: typeof content === 'string' ? content : JSON.stringify(content) });
+      toast.success('Blog generated successfully!');
+    } catch (error: any) {
+      console.error('AI generation error:', error);
+      toast.error(error.response?.data?.error || 'Failed to generate blog. Please try again.');
+    } finally {
+      setIsGenerating(false);
     }
-    
-    const sentences = userPrompt.split(/[.!?]/);
-    const firstSentence = sentences[0].trim();
-    
-    return firstSentence.length > 100 
-      ? firstSentence.substring(0, 97) + '...'
-      : firstSentence;
-  };
-
-  const generateContentFromPrompt = (userPrompt: string, title: string): string => {
-    return `# ${title}
-
-## Introduction
-
-${userPrompt}
-
-## Overview
-
-Based on your request, let me provide a comprehensive overview of this topic. This subject has gained significant attention recently and understanding it thoroughly can provide valuable insights.
-
-## Key Insights
-
-### 1. Understanding the Fundamentals
-
-To properly address this topic, we need to start with the basics. The foundation of any good understanding comes from grasping core concepts and building upon them systematically.
-
-### 2. Current Trends and Developments
-
-The landscape is constantly evolving. Recent developments have shown that staying updated with the latest trends is crucial for anyone interested in this field.
-
-### 3. Practical Applications
-
-Theory is important, but practical application is where real value is created. Let's explore how these concepts can be applied in real-world scenarios:
-
-- **Implementation Strategies**: Step-by-step approaches that work
-- **Common Pitfalls**: What to avoid and why
-- **Best Practices**: Proven methods that deliver results
-
-## Deep Dive into Core Concepts
-
-### Technical Considerations
-
-When dealing with this topic, several technical aspects need careful consideration:
-
-1. **Architecture and Design**: Building a solid foundation
-2. **Performance Optimization**: Ensuring efficiency at scale
-3. **Security Measures**: Protecting against vulnerabilities
-4. **Scalability Planning**: Preparing for growth
-
-### Strategic Approach
-
-Success requires more than just technical knowledge. A strategic approach includes:
-
-- Clear goal setting and roadmap planning
-- Resource allocation and time management
-- Risk assessment and mitigation strategies
-- Continuous improvement and iteration
-
-## Real-World Examples
-
-### Case Study 1: Successful Implementation
-
-Consider a recent example where this approach was successfully implemented. The team started by clearly defining their objectives, then systematically worked through each phase of implementation.
-
-**Results achieved:**
-- Improved efficiency by 40%
-- Reduced costs by 25%
-- Enhanced user satisfaction significantly
-
-### Case Study 2: Lessons Learned
-
-Not every attempt succeeds on the first try. This case study highlights important lessons learned from challenges faced during implementation.
-
-## Best Practices and Recommendations
-
-After analyzing various approaches and outcomes, here are the key recommendations:
-
-### Do's:
-✅ Start with thorough research and planning
-✅ Test incrementally and gather feedback
-✅ Document processes and decisions
-✅ Stay flexible and adapt as needed
-✅ Invest in continuous learning
-
-### Don'ts:
-❌ Rush into implementation without planning
-❌ Ignore user feedback and data
-❌ Overcomplicate simple solutions
-❌ Neglect security and scalability
-❌ Stop learning and improving
-
-## Tools and Resources
-
-Here are some valuable tools and resources that can help:
-
-- Industry-standard frameworks and libraries
-- Online courses and tutorials
-- Community forums and discussion groups
-- Documentation and official guides
-- Books and research papers
-
-## Future Outlook
-
-Looking ahead, several trends are emerging that will shape the future of this field:
-
-1. **Increased Automation**: AI and ML integration
-2. **Enhanced Collaboration**: Better tools for teamwork
-3. **Improved Accessibility**: Making technology more inclusive
-4. **Sustainability Focus**: Environmental considerations
-
-## Conclusion
-
-${title} is a multifaceted topic that requires both theoretical knowledge and practical experience. By understanding the fundamentals, staying updated with trends, and following best practices, you can effectively navigate this space.
-
-Remember that success comes from continuous learning, adaptation, and a willingness to embrace new approaches. Start small, iterate often, and don't be afraid to experiment.
-
-## Key Takeaways
-
-- Understand the fundamentals before diving deep
-- Stay updated with current trends and developments
-- Apply best practices in real-world scenarios
-- Learn from both successes and failures
-- Plan for scalability and long-term growth
-
-## Next Steps
-
-Ready to get started? Here's what you should do next:
-
-1. **Research Further**: Dive deeper into specific aspects that interest you
-2. **Experiment**: Try implementing concepts in a small project
-3. **Connect**: Join communities and learn from others
-4. **Document**: Keep track of your learnings and progress
-5. **Share**: Contribute back to the community with your insights
-
----
-
-*This blog post was generated by AI based on your prompt. Feel free to edit, expand, or customize it to better match your vision and audience.*`;
   };
 
   const handleUseGenerated = () => {

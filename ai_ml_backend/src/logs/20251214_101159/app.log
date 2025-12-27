@@ -1,0 +1,2 @@
+[ 2025-12-14 10:12:23,432 ] 60 root - ERROR - Unexpected error in process_title: type object 'GenerativeModel' has no attribute 'from_pretrained'
+[ 2025-12-14 10:12:23,432 ] 29 root - ERROR - NerException in create_article: Error occurred python script name [workflow.py] line number [43] error message [type object 'GenerativeModel' has no attribute 'from_pretrained']

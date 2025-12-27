@@ -37,7 +37,7 @@ import {
   Type
 } from 'lucide-react';
 import { toast } from 'sonner';
-import { blogService, categoryService, tagService } from '../services/api';
+import { blogService, categoryService, tagService, aiService } from '../services/api';
 import type { BlogPost as APIBlogPost, BlogPostCreate, Category, Tag } from '../types/api';
 import { Alert, AlertDescription } from './ui/alert';
 
@@ -59,6 +59,7 @@ export function BlogEditor({ post, onCancel, previousPosts }: BlogEditorProps) {
   const [categories, setCategories] = useState<Category[]>([]);
   const [tags, setTags] = useState<Tag[]>([]);
   const [isSaving, setIsSaving] = useState(false);
+  const [isGenerating, setIsGenerating] = useState(false);
   const [activeTab, setActiveTab] = useState<'write' | 'preview'>('write');
   const [error, setError] = useState('');
   const [isFullscreen, setIsFullscreen] = useState(false);
@@ -69,6 +70,26 @@ export function BlogEditor({ post, onCancel, previousPosts }: BlogEditorProps) {
   const [imageUrl, setImageUrl] = useState('');
   const [imageAlt, setImageAlt] = useState('');
   const contentRef = useRef<HTMLTextAreaElement>(null);
+
+  const handleGenerateFromTitle = async () => {
+    if (!title.trim()) {
+      toast.error('Please enter a title first');
+      return;
+    }
+
+    setIsGenerating(true);
+    try {
+      const response = await aiService.generateArticle(title);
+      setContent(response.result);
+      toast.success('Content generated successfully!');
+    } catch (err: any) {
+      const errorMsg = err.response?.data?.error || 'Failed to generate content';
+      toast.error(errorMsg);
+      console.error('Generation error:', err);
+    } finally {
+      setIsGenerating(false);
+    }
+  };
 
   const fetchCategories = async () => {
     try {
@@ -603,13 +624,35 @@ export function BlogEditor({ post, onCancel, previousPosts }: BlogEditorProps) {
                   <TabsContent value="write" className="space-y-4">
                     <div className="space-y-2">
                       <Label htmlFor="title" className="dark:text-gray-200">Title</Label>
-                      <Input
-                        id="title"
-                        placeholder="Enter your blog post title..."
-                        value={title}
-                        onChange={(e) => setTitle(e.target.value)}
-                        className="dark:bg-gray-900 dark:border-emerald-900 dark:text-gray-100"
-                      />
+                      <div className="flex gap-2">
+                        <Input
+                          id="title"
+                          placeholder="Enter your blog post title..."
+                          value={title}
+                          onChange={(e) => setTitle(e.target.value)}
+                          className="dark:bg-gray-900 dark:border-emerald-900 dark:text-gray-100 flex-1"
+                        />
+                        <Button
+                          type="button"
+                          variant="outline"
+                          onClick={handleGenerateFromTitle}
+                          disabled={isGenerating || !title.trim()}
+                          className="bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white border-0 dark:from-emerald-700 dark:to-teal-700"
+                          title="Generate content from title using AI"
+                        >
+                          {isGenerating ? (
+                            <Loader2 className="w-4 h-4 animate-spin" />
+                          ) : (
+                            <Wand2 className="w-4 h-4" />
+                          )}
+                        </Button>
+                      </div>
+                      {title && !content && (
+                        <p className="text-xs text-emerald-600 dark:text-emerald-400 flex items-center gap-1">
+                          <Sparkles className="w-3 h-3" />
+                          Click the magic wand to generate content from your title
+                        </p>
+                      )}
                     </div>
 
                     <div className="space-y-2">

@@ -1,0 +1,19 @@
+[ 2025-12-28 00:29:20,220 ] 11 root - INFO - Starting AI Blog Writer Backend...
+[ 2025-12-28 00:29:58,139 ] 15 root - INFO - Generating article for title: Explain Long Short-Term Memory (LSTM) networks in a clear and structured manner.
+
+Please include:
+What problem LSTMs are designed to solve
+Why standard RNNs fail (vanishing/exploding gradients)
+LSTM architecture and components (cell state, hidden state)
+Detailed explanation of each gate (forget, input, output) with intuition
+Mathematical formulation of LSTM equations
+How information flows across timesteps
+A simple real-world example (e.g., time series or NLP)
+Advantages and limitations of LSTMs
+When to use LSTM vs GRU vs Transformer
+
+Explain at an interview-ready level with clear examples and no unnecessary jargon.
+[ 2025-12-28 00:29:58,139 ] 5195 google_genai.models - INFO - AFC is enabled with max remote calls: 10.
+[ 2025-12-28 00:29:59,728 ] 731 google.auth._default - WARNING - No project ID could be determined. Consider running `gcloud config set project` or setting the GOOGLE_CLOUD_PROJECT environment variable
+[ 2025-12-28 00:30:26,143 ] 1025 httpx - INFO - HTTP Request: POST https://us-central1-aiplatform.googleapis.com/v1beta1/projects/blog-ai-writer-481113/locations/us-central1/publishers/google/models/gemini-2.0-flash-lite-001:generateContent "HTTP/1.1 200 OK"
+[ 2025-12-28 00:31:10,346 ] 13 root - INFO - Shutting down AI Blog Writer Backend...

@@ -1,9 +1,9 @@
 from typing import Optional
 import sys
-from executors.executor import ArticleExecutor
-from models.model import GenerativeModelHandler
-from helpers.exception import NerException
-from helpers.logger import logging
+from ..executors.executor import ArticleExecutor
+from ..models.model import GenerativeModelHandler
+from ..helpers.exception import NerException
+from ..helpers.logger import logging
 
 ALLOWED_ACTIONS = {
     "generate": "execute_generating_from_title",

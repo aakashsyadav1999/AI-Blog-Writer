@@ -1,6 +1,6 @@
 import sys
-from helpers.exception import NerException
-from helpers.logger import logging
+from ..helpers.exception import NerException
+from ..helpers.logger import logging
 
 
 # Prompt for generating an article from a given title

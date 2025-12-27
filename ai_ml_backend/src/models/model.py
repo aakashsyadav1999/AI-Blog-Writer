@@ -18,8 +18,8 @@ class GenerativeModelHandler:
         self.model_name = model_name
 
     def generate(self, prompt: str,
-                 max_output_tokens: int = 512,
-                 temperature: float = 0.2,
+                 max_output_tokens: int = 4096,
+                 temperature: float = 0.7,
                  **kwargs: Any) -> str:
         """
         Generate content for `prompt` and return the text result.

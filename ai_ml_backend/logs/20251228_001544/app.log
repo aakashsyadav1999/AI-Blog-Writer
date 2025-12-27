@@ -1,0 +1,9 @@
+[ 2025-12-28 00:15:45,053 ] 11 root - INFO - Starting AI Blog Writer Backend...
+[ 2025-12-28 00:21:15,478 ] 15 root - INFO - Generating article for title: List 6 trending blog topics in technology and business with descriptions
+[ 2025-12-28 00:21:15,479 ] 5195 google_genai.models - INFO - AFC is enabled with max remote calls: 10.
+[ 2025-12-28 00:21:16,620 ] 731 google.auth._default - WARNING - No project ID could be determined. Consider running `gcloud config set project` or setting the GOOGLE_CLOUD_PROJECT environment variable
+[ 2025-12-28 00:21:44,608 ] 1025 httpx - INFO - HTTP Request: POST https://us-central1-aiplatform.googleapis.com/v1beta1/projects/blog-ai-writer-481113/locations/us-central1/publishers/google/models/gemini-2.0-flash-lite-001:generateContent "HTTP/1.1 200 OK"
+[ 2025-12-28 00:23:22,082 ] 15 root - INFO - Generating article for title: Beyond Token-by-Token: How CALM Autoencoders Are Redefining LLM Efficiency
+[ 2025-12-28 00:23:22,089 ] 5195 google_genai.models - INFO - AFC is enabled with max remote calls: 10.
+[ 2025-12-28 00:23:48,500 ] 1025 httpx - INFO - HTTP Request: POST https://us-central1-aiplatform.googleapis.com/v1beta1/projects/blog-ai-writer-481113/locations/us-central1/publishers/google/models/gemini-2.0-flash-lite-001:generateContent "HTTP/1.1 200 OK"
+[ 2025-12-28 00:28:53,815 ] 13 root - INFO - Shutting down AI Blog Writer Backend...

@@ -1,0 +1,3 @@
+[ 2025-12-14 10:15:01,709 ] 20 root - ERROR - Error in GeneratingFromTitleExecutor.execute: _GenerativeModel.generate_content() got an unexpected keyword argument 'max_output_tokens'
+[ 2025-12-14 10:15:01,710 ] 56 root - ERROR - NerException raised during workflow processing
+[ 2025-12-14 10:15:01,710 ] 29 root - ERROR - NerException in create_article: Error occurred python script name [executor.py] line number [17] error message [Error generating article from title: _GenerativeModel.generate_content() got an unexpected keyword argument 'max_output_tokens']

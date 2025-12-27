@@ -6,6 +6,7 @@ import { Skeleton } from './ui/skeleton';
 import { ArrowLeft, TrendingUp, Lightbulb, Sparkles, ExternalLink } from 'lucide-react';
 import { toast } from 'sonner@2.0.3';
 import type { BlogPost } from '../types/api';
+import { aiService } from '../services/api';
 
 interface AIAssistantProps {
   previousPosts: BlogPost[];
@@ -34,63 +35,51 @@ export function AIAssistant({ previousPosts, onSelectTopic, onBack }: AIAssistan
   const generateTopics = async () => {
     setIsLoading(true);
     
-    // Simulate AI processing
-    await new Promise(resolve => setTimeout(resolve, 2000));
-
-    // Generate mock topics based on previous posts
-    const mockTopics: TopicSuggestion[] = [
-      {
-        id: '1',
-        title: 'The Rise of AI-Powered Development Tools in 2024',
-        description: 'Explore how AI is transforming the way developers write, test, and deploy code. This trending topic has seen 300% growth in searches.',
-        trend: 'hot',
-        category: 'Technology',
-        relatedKeywords: ['AI', 'Developer Tools', 'Automation', 'Productivity']
-      },
-      {
-        id: '2',
-        title: 'Building Accessible Web Applications: Best Practices',
-        description: 'Accessibility is becoming a legal requirement. Learn the essential techniques to make your web apps inclusive for all users.',
-        trend: 'rising',
-        category: 'Web Development',
-        relatedKeywords: ['Accessibility', 'WCAG', 'Inclusive Design', 'UX']
-      },
-      {
-        id: '3',
-        title: 'Micro-SaaS Success Stories: From Idea to $10K MRR',
-        description: 'Small teams are building profitable SaaS products. Discover strategies from successful micro-SaaS founders.',
-        trend: 'hot',
-        category: 'Business',
-        relatedKeywords: ['SaaS', 'Entrepreneurship', 'Indie Hacking', 'Revenue']
-      },
-      {
-        id: '4',
-        title: 'TypeScript 5.0: New Features and Migration Guide',
-        description: 'TypeScript continues to evolve. Learn about the latest features and how to upgrade your projects.',
-        trend: 'steady',
-        category: 'Programming',
-        relatedKeywords: ['TypeScript', 'JavaScript', 'Static Typing', 'Migration']
-      },
-      {
-        id: '5',
-        title: 'The Psychology of User Engagement in Mobile Apps',
-        description: 'Understanding user behavior is key to retention. Explore psychological principles that drive app engagement.',
-        trend: 'rising',
-        category: 'UX Design',
-        relatedKeywords: ['User Engagement', 'Psychology', 'Mobile UX', 'Retention']
-      },
-      {
-        id: '6',
-        title: 'Server-Side Rendering vs Client-Side: When to Use Each',
-        description: 'The debate continues. A practical guide to choosing the right rendering strategy for your web application.',
-        trend: 'steady',
-        category: 'Web Development',
-        relatedKeywords: ['SSR', 'CSR', 'Performance', 'SEO']
+    try {
+      // Call the real AI API to generate trending topics
+      const response = await aiService.suggestTopics('', 6);
+      
+      if (response.status === 'success' && response.topics) {
+        setTopics(response.topics);
+        toast.success('Fresh trending topics loaded!');
+      } else {
+        throw new Error('Failed to load topics');
       }
-    ];
-
-    setTopics(mockTopics);
-    setIsLoading(false);
+    } catch (error: any) {
+      console.error('Error fetching topics:', error);
+      toast.error('Failed to load topics. Showing sample topics instead.');
+      
+      // Fallback to sample topics if API fails
+      const mockTopics: TopicSuggestion[] = [
+        {
+          id: '1',
+          title: 'The Rise of AI-Powered Development Tools in 2024',
+          description: 'Explore how AI is transforming the way developers write, test, and deploy code. This trending topic has seen 300% growth in searches.',
+          trend: 'hot',
+          category: 'Technology',
+          relatedKeywords: ['AI', 'Developer Tools', 'Automation', 'Productivity']
+        },
+        {
+          id: '2',
+          title: 'Building Accessible Web Applications: Best Practices',
+          description: 'Accessibility is becoming a legal requirement. Learn the essential techniques to make your web apps inclusive for all users.',
+          trend: 'rising',
+          category: 'Web Development',
+          relatedKeywords: ['Accessibility', 'WCAG', 'Inclusive Design', 'UX']
+        },
+        {
+          id: '3',
+          title: 'Micro-SaaS Success Stories: From Idea to $10K MRR',
+          description: 'Small teams are building profitable SaaS products. Discover strategies from successful micro-SaaS founders.',
+          trend: 'hot',
+          category: 'Business',
+          relatedKeywords: ['SaaS', 'Entrepreneurship', 'Indie Hacking', 'Revenue']
+        }
+      ];
+      setTopics(mockTopics);
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleSelectTopic = (topic: TopicSuggestion) => {

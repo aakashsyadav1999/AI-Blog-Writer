@@ -1,10 +1,10 @@
 import sys
-from helpers.exception import NerException
-from helpers.logger import logging
-from models.model import GenerativeModelHandler
-from prompts.generating_from_title_prompt import GeneratingFromTitlePrompt
-from prompts.improving_readability_prompt import ImprovingReadabilityPrompt
-from prompts.summarization_prompt import SummarizationPrompt
+from ..helpers.exception import NerException
+from ..helpers.logger import logging
+from ..models.model import GenerativeModelHandler
+from ..prompts.generating_from_title_prompt import GeneratingFromTitlePrompt
+from ..prompts.improving_readability_prompt import ImprovingReadabilityPrompt
+from ..prompts.summarization_prompt import SummarizationPrompt
 
 # Executor for generating articles from titles
 class ArticleExecutor:

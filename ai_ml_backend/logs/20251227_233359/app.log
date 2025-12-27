@@ -1,0 +1,6 @@
+[ 2025-12-27 23:33:59,230 ] 11 root - INFO - Starting AI Blog Writer Backend...
+[ 2025-12-27 23:34:32,800 ] 15 root - INFO - Generating article for title: LSTM full working
+[ 2025-12-27 23:34:32,800 ] 5195 google_genai.models - INFO - AFC is enabled with max remote calls: 10.
+[ 2025-12-27 23:34:35,331 ] 731 google.auth._default - WARNING - No project ID could be determined. Consider running `gcloud config set project` or setting the GOOGLE_CLOUD_PROJECT environment variable
+[ 2025-12-27 23:34:41,106 ] 1025 httpx - INFO - HTTP Request: POST https://us-central1-aiplatform.googleapis.com/v1beta1/projects/blog-ai-writer-481113/locations/us-central1/publishers/google/models/gemini-2.0-flash-lite-001:generateContent "HTTP/1.1 200 OK"
+[ 2025-12-27 23:40:30,461 ] 13 root - INFO - Shutting down AI Blog Writer Backend...

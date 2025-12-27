@@ -1,0 +1,9 @@
+[ 2025-12-27 23:57:06,400 ] 11 root - INFO - Starting AI Blog Writer Backend...
+[ 2025-12-28 00:02:13,900 ] 15 root - INFO - Generating article for title: Explain what is RNN.
+[ 2025-12-28 00:02:13,900 ] 5195 google_genai.models - INFO - AFC is enabled with max remote calls: 10.
+[ 2025-12-28 00:02:15,785 ] 731 google.auth._default - WARNING - No project ID could be determined. Consider running `gcloud config set project` or setting the GOOGLE_CLOUD_PROJECT environment variable
+[ 2025-12-28 00:02:42,310 ] 1025 httpx - INFO - HTTP Request: POST https://us-central1-aiplatform.googleapis.com/v1beta1/projects/blog-ai-writer-481113/locations/us-central1/publishers/google/models/gemini-2.0-flash-lite-001:generateContent "HTTP/1.1 200 OK"
+[ 2025-12-28 00:03:58,787 ] 15 root - INFO - Generating article for title: Server-Side Rendering vs Client-Side: When to Use Each
+[ 2025-12-28 00:03:58,787 ] 5195 google_genai.models - INFO - AFC is enabled with max remote calls: 10.
+[ 2025-12-28 00:04:24,102 ] 1025 httpx - INFO - HTTP Request: POST https://us-central1-aiplatform.googleapis.com/v1beta1/projects/blog-ai-writer-481113/locations/us-central1/publishers/google/models/gemini-2.0-flash-lite-001:generateContent "HTTP/1.1 200 OK"
+[ 2025-12-28 00:04:48,965 ] 13 root - INFO - Shutting down AI Blog Writer Backend...

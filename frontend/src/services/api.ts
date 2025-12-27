@@ -297,6 +297,45 @@ export const aiService = {
     });
     return response.data;
   },
+
+  // Generate article from title
+  async generateArticle(title: string) {
+    const response = await api.post('/api/ai/generate/', { title });
+    return response.data;
+  },
+
+  // Improve text readability
+  async improveText(text: string) {
+    const response = await api.post('/api/ai/improve/', { text });
+    return response.data;
+  },
+
+  // Summarize text
+  async summarizeText(text: string) {
+    const response = await api.post('/api/ai/summarize/', { text });
+    return response.data;
+  },
+
+  // Process batch of items
+  async batchProcess(items: Array<{ title: string; action: string }>) {
+    const response = await api.post('/api/ai/batch/', { items });
+    return response.data;
+  },
+
+  // Check AI service health
+  async healthCheck() {
+    const response = await api.get('/api/ai/health/');
+    return response.data;
+  },
+
+  // Generate trending topic suggestions
+  async suggestTopics(category?: string, count?: number) {
+    const response = await api.post('/api/ai/suggest-topics/', { 
+      category: category || '',
+      count: count || 6 
+    });
+    return response.data;
+  },
 };
 
 // User Preferences service

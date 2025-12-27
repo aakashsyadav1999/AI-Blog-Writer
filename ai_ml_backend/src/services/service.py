@@ -1,7 +1,7 @@
 from typing import Optional
-from models.model import GenerativeModelHandler
-from workflows.workflow import process_title
-from helpers.logger import logging
+from ..models.model import GenerativeModelHandler
+from ..workflows.workflow import process_title
+from ..helpers.logger import logging
 
 
 class ArticleService:
