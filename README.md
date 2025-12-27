@@ -1,24 +1,22 @@
 # AI Blog Writer - Application Screenshots
 
+
+# Welcome to the AI Blog Writer Application!
+![Landing Page Light Mode](screenshot/light-mode.png)
+![Landing Page Dark Mode](screenshot/dark-mode.png)
+
+# Login Page
+![Login Page](screenshot/Screenshot%20from%202025-12-28%2000-31-05.png)
+
 ## Main Interface
-![App Interface 1](screenshot/Screenshot%20from%202025-12-28%2000-22-11.png)
+![Main Interface](screenshot/Screenshot%20from%202025-12-28%2000-30-54.png)
 
-![App Interface 2](screenshot/Screenshot%20from%202025-12-28%2000-22-30.png)
+## Write and create with titles
+![Write and create with titles](screenshot/Screenshot%20from%202025-12-28%2000-25-09.png)
 
-## Blog Creation & Editing
-![Blog Creation 1](screenshot/Screenshot%20from%202025-12-28%2000-25-09.png)
+## Generate blog posts with prompts
+![Generate blog posts with prompts](screenshot/Screenshot%20from%202025-12-28%2000-30-31.png)
+![Generate blog posts with prompts preview](screenshot/Screenshot%20from%202025-12-28%2000-25-21.png)
 
-![Blog Creation 2](screenshot/Screenshot%20from%202025-12-28%2000-25-14.png)
-
-![Blog Creation 3](screenshot/Screenshot%20from%202025-12-28%2000-25-21.png)
-
-## Features in Action
-![Feature View 1](screenshot/Screenshot%20from%202025-12-28%2000-28-07.png)
-
-![Feature View 2](screenshot/Screenshot%20from%202025-12-28%2000-30-31.png)
-
-![Feature View 3](screenshot/Screenshot%20from%202025-12-28%2000-30-39.png)
-
-![Feature View 4](screenshot/Screenshot%20from%202025-12-28%2000-30-54.png)
-
-![Feature View 5](screenshot/Screenshot%20from%202025-12-28%2000-31-05.png)
+## Find top trending blog topics
+![Find top trending blog topics](screenshot/Screenshot%20from%202025-12-28%2000-22-11.png)
