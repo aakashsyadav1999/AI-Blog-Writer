@@ -199,6 +199,9 @@ SIMPLE_JWT = {
 # Django Allauth Configuration (Updated for new version)
 ACCOUNT_EMAIL_VERIFICATION = 'none'  # Disable email verification for development
 ACCOUNT_LOGIN_ON_EMAIL_CONFIRMATION = True
+
+# AI/ML Backend Configuration
+AI_BACKEND_URL = 'http://localhost:8001'  # FastAPI AI/ML service URL
 ACCOUNT_UNIQUE_EMAIL = True
 
 # New format for signup fields (replaces deprecated settings)

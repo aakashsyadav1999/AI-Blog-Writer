@@ -18,4 +18,12 @@ router.register(r'preferences', views.UserPreferenceViewSet, basename='userprefe
 # The API URLs are now determined automatically by the router
 urlpatterns = [
     path('', include(router.urls)),
+
+    # AI Service endpoints
+    path('ai/generate/', views.ai_generate_article, name='ai-generate'),
+    path('ai/improve/', views.ai_improve_text, name='ai-improve'),
+    path('ai/summarize/', views.ai_summarize_text, name='ai-summarize'),
+    path('ai/batch/', views.ai_batch_process, name='ai-batch'),
+    path('ai/health/', views.ai_health_check, name='ai-health'),
+    path('ai/suggest-topics/', views.ai_suggest_topics, name='ai-suggest-topics'),
 ]
