@@ -5,6 +5,8 @@
 .Python
 __pycache__/
 *.pyc
+*.txt
+
 
 # Virtual Environment
 venv/
